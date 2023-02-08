@@ -465,10 +465,25 @@ Member repositories:
  - vprofile-snapshot
    ```
 
-### :earth_africa: SonarQube  Post Installation
-
 ### :hammer_and_wrench: Build Job
 
+-  Build the Artifact from our source code using Maven. Before our artifact, configure Maven and JDK8 in jenkins.
+
+- Install JDK8 on your server 
+
+```sh
+sudo apt update -y
+sudo apt install openjdk-8-jdk -y
+sudo -i
+ls /usr/lib/jvm
+### we should get both jdk-11 and jdk-8 in this path ###
+java-1.11.0-openjdk-amd64  java-11-openjdk-amd64  openjdk-11
+java-1.8.0-openjdk-amd64   java-8-openjdk-amd64
+   ```
+
+- Go to `Manage Jenkins`-> `Global Tool Configuration` Installed `JDK8` manually, and specify its PATH `/usr/lib/jvm/java-8-openjdk-amd64' .
+
+   
 <br/>
 <div align="right">
     <b><a href="#Project-03">↥ back to top</a></b>
