@@ -141,7 +141,7 @@
 </div>
 <br/>
 
-### :hammer_and_wrench: Build Application from source code
+### :hammer_and_wrench: Build Job
 
 <br/>
 <div align="right">
@@ -149,7 +149,7 @@
 </div>
 <br/>
 
-### :rocket: Upload to S3 bucket
+### :rocket: Setup Slack Notification
 
 <br/>
 <div align="right">
@@ -157,7 +157,7 @@
 </div>
 <br/>
 
-### :package: Download artifact to Tomcat Ec2 Instance
+### :package: Checkstyle code analysis Job
 
 <br/>
 <div align="right">
@@ -165,7 +165,7 @@
 </div>
 <br/>
 
-### :lock: Setup ELB with HTTPS 
+### :lock: Setup Sonar integration
 
 <br/>
 <div align="right">
@@ -173,7 +173,7 @@
 </div>
 <br/>
 
-### :earth_africa: Map ELB Endpoint to website name in DNS
+### :earth_africa: Sonar code analysis job
 
 <br/>
 <div align="right">
@@ -181,7 +181,7 @@
 </div>
 <br/>
 
-### :hammer_and_wrench: Build Autoscaling Group for Tomcat Instances
+### :hammer_and_wrench: Artifact upload job
 
 <br/>
 <div align="right">
@@ -189,6 +189,27 @@
 </div>
 <br/>
 
+### :hammer_and_wrench: Connect all jobs together with-Build Pipeline
+
+<br/>
+<div align="right">
+    <b><a href="#Project-03">↥ back to top</a></b>
+</div>
+<br/>
+### :hammer_and_wrench: Set Automatic build trigger
+
+<br/>
+<div align="right">
+    <b><a href="#Project-03">↥ back to top</a></b>
+</div>
+<br/>
+### :hammer_and_wrench: Make Code change
+
+<br/>
+<div align="right">
+    <b><a href="#Project-03">↥ back to top</a></b>
+</div>
+<br/>
 ## :earth_africa: Verify from browser
 
 <br/>
