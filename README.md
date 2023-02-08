@@ -120,7 +120,7 @@ Name: ci-vprofile-key
 
 #### :lock: Jenkins
 
-- Create a security group for the Jenkins server with the following details.
+- Create a security group for the `Jenkins server` with the following details.
 
  ```sh
 Name: vprofile-jenkins-sg
@@ -132,7 +132,7 @@ Allow: 8080 from vprofile-sonarqube-sg
    ```
 
 #### :lock:  Nexus
-- Create a security group for the Nexus server with the following details.
+- Create a security group for the `Nexus server` with the following details.
 
  ```sh
 Name: vprofile-nexus-sg
@@ -145,7 +145,7 @@ Allow: 8081 from vprofile-jenkins-sg
 
 #### :lock:  SonarQube
 
-- Create a security group for the SonQube server with the following details.
+- Create a security group for the `SonQube server` with the following details.
 
  ```sh
 Name: vprofile-sonarqube-sg
@@ -163,7 +163,37 @@ Allow: 80 from vprofile-jenkins-sg
 
 ### :bulb: Launch Instances with user data 
 
+- Now let's create three EC2 instances and launch Instances with user data
+- 
 #### :bulb: Jenkins
+
+- We will create Jenkins-server with below details.
+
+```sh
+Name: jenkins-server
+AMI: Ubuntu 20.04
+SecGrp: vprofile-jenkins-sg
+InstanceType: t2.small
+KeyPair: ci-vprofile-key
+   ```
+- Create the script to provision our `Jenkins server` with the Userdata script below.
+
+
+```sh
+#!/bin/bash
+sudo apt update
+sudo apt install openjdk-11-jdk -y
+sudo apt install maven -y
+curl -fsSL https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo tee \
+  /usr/share/keyrings/jenkins-keyring.asc > /dev/null
+echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] \
+  https://pkg.jenkins.io/debian-stable binary/ | sudo tee \
+  /etc/apt/sources.list.d/jenkins.list > /dev/null
+sudo apt-get update
+sudo apt-get install jenkins -y
+###
+   ```
+
 #### :bulb: SonarQube
 #### :bulb: Nexus
 
