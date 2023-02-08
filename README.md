@@ -563,6 +563,29 @@ path: Jenkinsfile
 
 ### :rocket: Setup Slack Notification
 
+- Login to `slack` and create a` workspace` by following the prompts. Then create a channel `jenkins-cicd` in our workspace
+
+- Add jenkins to slack. 
+
+- Go to Jenkins dashboard  `Configure system` -> `Slack`
+
+ 
+```sh
+Workspace:  example (in the workspace url example.slack.com)
+credential: slacktoken 
+default channel: #jenkins-cicd
+   ```
+
+- Add our sonar token to global credentials.
+
+ 
+```sh
+Kind: secret text
+Secret: <paste_token>
+name: slacktoken
+description: slacktoken
+   ```
+
 <br/>
 <div align="right">
     <b><a href="#Project-03">↥ back to top</a></b>
@@ -579,6 +602,33 @@ path: Jenkinsfile
 
 ### :lock: Setup Sonar integration
 
+-  Go to `Manage Jenkin`s -> `Global Tool Configuration` and configure Sonaqube
+
+
+```sh
+Add sonar scanner
+name: sonarscanner
+tick install automatically
+   ```
+- Next we need to go to Configure System, and find SonarQube servers section
+
+```sh
+tick environment variables
+Add sonarqube
+Name: sonarserver
+Server URL: http://<private_ip_of_sonar_server>
+Server authentication token: we need to create token from sonar website
+   ```
+   
+ Add sonar token to global credentials.
+ 
+
+```sh
+Kind: secret text
+Secret: <paste_token>
+name: sonartoken
+description: sonartoken
+   ``` 
 <br/>
 <div align="right">
     <b><a href="#Project-03">↥ back to top</a></b>
@@ -587,6 +637,55 @@ path: Jenkinsfile
 
 ### :earth_africa: Sonar code analysis job
 
+- create a SonarQube code for our pipeline and commit/push changes to GitHub.
+
+
+```sh
+##new environment variables to be added to environment##
+SONARSERVER = 'sonarserver'
+SONARSCANNER = 'sonarscanner'
+##new stages to be added##
+ stage('CODE ANALYSIS with SONARQUBE') {
+          
+          environment {
+             scannerHome = tool "${SONARSCANNER}"
+          }
+          steps {
+            withSonarQubeEnv("${SONARSERVER}") {
+               sh '''${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=vprofile \
+                   -Dsonar.projectName=vprofile-repo \
+                   -Dsonar.projectVersion=1.0 \
+                   -Dsonar.sources=src/ \
+                   -Dsonar.java.binaries=target/test-classes/com/visualpathit/account/controllerTest/ \
+                   -Dsonar.junit.reportsPath=target/surefire-reports/ \
+                   -Dsonar.jacoco.reportsPath=target/jacoco.exec \
+                   -Dsonar.java.checkstyle.reportPaths=target/checkstyle-result.xml'''
+            }
+          }
+   ``` 
+
+- Our job will be triggerred and build automatically becauce of `the pull SM` cron job
+
+
+- We can see quality gate results in SonarQube server.
+
+- Let's create a Webhook in SonarQube to send the analysis results to jenkins
+
+```sh
+http://<private_ip_of_jenkins>:8080/sonarqube-webhook
+   ``` 
+- We will add below stage to our pipeline and commit changes to Github.
+
+
+```sh
+stage('QUALITY GATE') {
+            steps {
+                timeout(time: 10, unit: 'MINUTES') {
+               waitForQualityGate abortPipeline: true
+            }
+            }
+}
+   ``` 
 <br/>
 <div align="right">
     <b><a href="#Project-03">↥ back to top</a></b>
@@ -619,6 +718,22 @@ path: Jenkinsfile
 
 ### :hammer_and_wrench: Make Code change
 
+- Add the code below to your Jenkinsfile in the same level with stages and push our changes.
+- 
+'''sh
+post{
+        always {
+            echo 'Slack Notifications'
+            slackSend channel: '#jenkinscicd',
+                color: COLOR_MAP[currentBuild.currentResult],
+                message: "*${currentBuild.currentResult}:* Job ${env.JOB_NAME} build ${env.BUILD_NUMBER} \n More info at: ${env.BUILD_URL}"
+        }
+    }
+   ```
+
+- We get our Notification from slack.
+
+  
 <br/>
 <div align="right">
     <b><a href="#Project-03">↥ back to top</a></b>
