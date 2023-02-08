@@ -133,7 +133,7 @@
 </div>
 <br/>
 
-### :earth_africa: Update IP to name mapping in route 53
+### :earth_africa: Jenkins Post Installation
 
 <br/>
 <div align="right">
