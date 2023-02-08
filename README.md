@@ -391,6 +391,15 @@ systemctl enable nexusSonarQube Server Setup
 
 ### :earth_africa: Jenkins Post Installation
 
+-  Let's `SSH` into our `jenkins server` and check the status os Jenkins, let's also view the content of `/var/lib/jenkins/secrets/initialAdminPassword`
+
+```sh
+sudo -i /Doundloads/ci-viprofile-key.pem ubuntu@your IP
+systemctl status jenkins
+cat /var/lib/jenkins/secrets/initialAdminPassword
+   ```
+
+
 <br/>
 <div align="right">
     <b><a href="#Project-03">↥ back to top</a></b>
