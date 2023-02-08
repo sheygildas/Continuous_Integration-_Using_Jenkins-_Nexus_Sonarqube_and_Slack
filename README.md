@@ -24,8 +24,10 @@
   - [Checkstyle code analysis Job](#package-checkstyle-code-analysis-job)
   - [Setup Sonar integration ](#lock-setup-sonar-integration)
   - [Sonar code analysis job](#earth_africa-sonar-code-analysis-job)
-  - 
-  - [Build Autoscaling Group for Tomcat Instances](#hammer_and_wrench-build-autoscaling-group-for-tomcat-nstances)
+  - [Artifact upload job](#hammer_and_wrench-artifact-upload-job)
+  - [Connect-all-jobs-together-with-Build-Pipeline](#hammer_and_wrench-connect-all-jobs-together-with-build-pipeline)
+  - [Set Automatic build trigger](#hammer_and_wrench-set-utomatic-build-trigger)
+  - [Make Code change](#hammer_and_wrench-make-code-change)
 - [Verify from browser](#earth_africa-verify-from-browser) 
 - [Resources](#page_facing_up-resources)
 - [Credit/Acknowledgment](#star2-creditacknowledgment)
