@@ -409,8 +409,7 @@ SonarQube Scanner
 Slack Notification
 Build Timestamp
    ```
-   
-   
+
 <br/>
 <div align="right">
     <b><a href="#Project-03">↥ back to top</a></b>
@@ -481,9 +480,81 @@ java-1.11.0-openjdk-amd64  java-11-openjdk-amd64  openjdk-11
 java-1.8.0-openjdk-amd64   java-8-openjdk-amd64
    ```
 
-- Go to `Manage Jenkins`-> `Global Tool Configuration` Installed `JDK8` manually, and specify its PATH `/usr/lib/jvm/java-8-openjdk-amd64' .
+- Go to `Manage Jenkins`-> `Global Tool Configuration` configure the Installed `JDK8` manually, and specify its PATH `/usr/lib/jvm/java-8-openjdk-amd64' .
 
    
+   
+-- Add Nexus login credentials to Jenkins. Go to  ` Manage Jenkins`-> `Manage Credentials`-> `Global` -> `Add Credentials` 
+ 
+ ```sh
+username: admin
+password: <pwd_setup_for_nexus>
+ID: nexuslogin
+description: nexuslogin
+   ```
+ - Create Jenkinsfile to build pipeline, code below
+ - 
+ ```sh
+pipeline {
+    agent any
+    tools {
+        maven "MAVEN3"
+        jdk "OracleJDK8"
+    }
+    environment {
+        SNAP_REPO = 'vprofile-snapshot'
+        NEXUS_USER = 'admin'
+        NEXUS_PASS = 'admin'
+        RELEASE_REPO = 'vprofile-release'
+        CENTRAL_REPO = 'vpro-maven-central'
+        NEXUSIP = '172.31.10.139'
+        NEXUSPORT = '8081'
+        NEXUS_GRP_REPO = 'vpro-maven-group'
+        NEXUS_LOGIN = 'nexuslogin'
+    }
+    stages {
+        stage('Build') {
+            steps {
+                sh 'mvn -s settings.xml -DskipTests install'
+            }
+        }
+    }
+}
+   ```
+   
+ - Create a New Job in Jenkins with properties below.
+```sh
+Pipeline from SCM 
+Git
+URL: <url_from_project> I will use SSH link
+Crdentials: we will create github login credentials
+#### add Jenkins credentials for github ####
+Kind: SSH Username with private key
+ID: githublogin
+Description: githublogin
+Username: git
+Private key file: paste your private key here
+#####
+Branch: */ci-jenkins
+path: Jenkinsfile
+   ```
+
+
+- Login jenkins server via SSH and complete host-key checking step. with command below, our host-key will be stored in .ssh/known_hosts file. Only then will error be fixed
+
+ - Create a New Job in Jenkins with properties below.
+ 
+```sh
+sudo -i
+sudo su - jenkins
+git ls-remote -h -- git@github.com:Osomudeya/vpro-ci-jenkin.git HEAD
+#####
+Branch: */ci-jenkins
+path: Jenkinsfile
+   ```
+- Now Build our project . Our build pipeline is successful
+
+
 <br/>
 <div align="right">
     <b><a href="#Project-03">↥ back to top</a></b>
