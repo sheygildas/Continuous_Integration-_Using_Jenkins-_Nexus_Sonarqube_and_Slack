@@ -5,7 +5,7 @@
 - [About The Project](#beginner-about-the-project)
 - [Problem that this project solves ](#question-problem-that-this-project-solves)
 - [Solution to the problem.](#key-solution-to-the-problem)
-- [Tools](#hammer_and_wrench-Tools)
+- [Tools and Services](#hammer_and_wrench-tools-and-services)
 - [Architecture of this project](#house-architecture-of-this-project)
 - [Steps to execute the project](#zap-steps-to-execute-the-project)
   - [Login to AWS Account ](#key-login-to-aws-account )
@@ -57,17 +57,15 @@
 </div>
 <br/>
 
-## :hammer_and_wrench: Tools
-- A tool
-- B tool
-
-| Name | Description |
-| --- | --- |
-| [`@toast-ui/editor-plugin-chart`](https://github.com/nhn/tui.editor/tree/master/plugins/chart) | Plugin to render chart |
-| [`@toast-ui/editor-plugin-code-syntax-highlight`](https://github.com/nhn/tui.editor/tree/master/plugins/code-syntax-highlight) | Plugin to highlight code syntax |
-| [`@toast-ui/editor-plugin-color-syntax`](https://github.com/nhn/tui.editor/tree/master/plugins/color-syntax) | Plugin to color editing text |
-| [`@toast-ui/editor-plugin-table-merged-cell`](https://github.com/nhn/tui.editor/tree/master/plugins/table-merged-cell) | Plugin to merge table columns |
-| [`@toast-ui/editor-plugin-uml`](https://github.com/nhn/tui.editor/tree/master/plugins/uml) | Plugin to render UML 
+## :hammer_and_wrench: Tools and Services
+- visual studio code or an IDE
+- AWS Account
+- Nexus
+- SonarQube
+- Slack
+- Maven
+- JDK8
+- Github Account
 
 <br/>
 <div align="right">
