@@ -394,17 +394,66 @@ systemctl enable nexusSonarQube Server Setup
 -  Let's `SSH` into our `jenkins server` and check the status os Jenkins, let's also view the content of `/var/lib/jenkins/secrets/initialAdminPassword`
 
 ```sh
-sudo -i /Doundloads/ci-viprofile-key.pem ubuntu@your IP
+sudo -i /Doundloads/ci-viprofile-key.pem ubuntu@your Jenkins IP
 systemctl status jenkins
 cat /var/lib/jenkins/secrets/initialAdminPassword
    ```
 
+Go to browser, http://<public_ip_of_jenkins_server>:8080, enter initial Admin Passwrd and install suggested plugins and additional plugins. Then create your first admin user.
 
+```sh
+Maven Integration
+Github Integration
+Nexus Artifact Uploader
+SonarQube Scanner
+Slack Notification
+Build Timestamp
+   ```
+   
+   
 <br/>
 <div align="right">
     <b><a href="#Project-03">↥ back to top</a></b>
 </div>
 <br/>
+### :earth_africa: Nexus Post Installation
+
+
+- Login with SSH into nexus server and check system status for nexus also view the password at `/opt/nexus/sonatype-work/nexus3/admin.password`
+
+
+```sh
+sudo -i /Doundloads/ci-viprofile-key.pem ubuntu@your Nexus IP
+systemctl status jenkins
+cat /opt/nexus/sonatype-work/nexus3/admin.password
+   ```
+- Go to browser, http://<public_ip_of_nexus_server>:8081 , enter Username as `admin`, paste password from previous step, click on sign-in. Setup our `new password` and select Disable Anonymous Access.
+
+
+- Let's create a repository that will be used to store our release artifacts with the following details.
+
+
+```sh
+maven2 hosted
+Name: vprofile-release
+Version policy: Release
+   ```
+
+- create a maven2 proxy repository which will store our dependencies. We will downdload our dependencies from this repository when ever we need them in our project
+
+```sh
+maven2 proxy
+Name: vpro-maven-central
+remote storage: https://repo1.maven.org/maven2/
+   ```
+
+- Create another repository which  will be used to store our snapshot artifacts.  any artifact with `-SNAPSHOT` extension will be stored in this repository
+
+```sh
+maven2 hosted
+Name: vprofile-snapshot
+Version policy: Snapshot
+   ```
 
 ### :hammer_and_wrench: Build Job
 
