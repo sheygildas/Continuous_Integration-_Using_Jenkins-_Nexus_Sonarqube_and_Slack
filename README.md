@@ -686,6 +686,10 @@ stage('QUALITY GATE') {
             }
 }
    ``` 
+   
+- Build the project 
+
+
 <br/>
 <div align="right">
     <b><a href="#Project-03">↥ back to top</a></b>
@@ -693,6 +697,36 @@ stage('QUALITY GATE') {
 <br/>
 
 ### :hammer_and_wrench: Artifact upload job
+- We will automate publish latest artifact to Nexus repository after successful build. We also need to add `Build-Timestamp` to artifact name to get unique artifact each time we build. Go to `Manage Jenkins` -> `Configure System` under `Build Timestamp` add `yy-MM-dd_HHmm`.
+
+
+- Also Add below stage to our pipeline
+
+```sh
+stage('UPLOAD ARTIFACT') {
+                steps {
+                    nexusArtifactUploader(
+                        nexusVersion: 'nexus3',
+                        protocol: 'http',
+                        nexusUrl: "${NEXUSIP}:${NEXUSPORT}",
+                        groupId: 'QA',
+                        version: "${env.BUILD_ID}-${env.BUILD_TIMESTAMP}",
+                        repository: "${RELEASE_REPO}",
+                        credentialsId: ${NEXUS_LOGIN},
+                        artifacts: [
+                            [artifactId: 'vproapp' ,
+                            classifier: '',
+                            file: 'target/vprofile-v2.war',
+                            type: 'war']
+                        ]
+                    )
+                }
+        }
+   ``` 
+- Build the project 
+
+- Artifact is uploaded to Nexus repository
+
 
 <br/>
 <div align="right">
