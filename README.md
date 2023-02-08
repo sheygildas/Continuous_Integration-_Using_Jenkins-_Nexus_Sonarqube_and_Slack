@@ -112,6 +112,9 @@
 
 ### :lock: Create Security groups
 
+#### :lock: Jenkins
+#### :lock:  Nexus
+#### :lock:  SonarQube
 <br/>
 <div align="right">
     <b><a href="#Project-03">↥ back to top</a></b>
@@ -119,6 +122,10 @@
 <br/>
 
 ### :bulb: Launch Instances with user data 
+
+#### :bulb: Jenkins
+#### :bulb: SonarQube
+#### :bulb: Nexus
 
 <br/>
 <div align="right">
