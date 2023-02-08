@@ -454,6 +454,18 @@ maven2 hosted
 Name: vprofile-snapshot
 Version policy: Snapshot
    ```
+Finally, create a repository for `maven2 group type`. We will use this repository to group all maven repositories.
+
+```sh
+maven2 group
+Name: vpro-maven-group
+Member repositories: 
+ - vpro-maven-central
+ - vprofile-release
+ - vprofile-snapshot
+   ```
+
+### :earth_africa: SonarQube  Post Installation
 
 ### :hammer_and_wrench: Build Job
 
