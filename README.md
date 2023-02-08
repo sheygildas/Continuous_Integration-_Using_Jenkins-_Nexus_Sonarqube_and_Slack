@@ -102,6 +102,12 @@
 
 ### :closed_lock_with_key: Create Key Pairs
 
+- Create the  key pair that you use to login to your AWS services and name it as follows.
+
+ ```sh
+Name: ci-vprofile-key
+   ```
+
 <br/>
 <div align="right">
     <b><a href="#Project-03">↥ back to top</a></b>
@@ -110,9 +116,45 @@
 
 ### :lock: Create Security groups
 
+- Create a security group for the Jenkins,Nexux and Sonaqube Instancse.
+
 #### :lock: Jenkins
+
+- Create a security group for the Jenkins server with the following details.
+
+ ```sh
+Name: vprofile-jenkins-sg
+Description: vprofile-jenkins-sg
+Tag: vprofile-jenkins-sg
+Allow: 8080 from MY IP 
+Allow: 22 from Anywhere from MY IP
+Allow: 8080 from vprofile-sonarqube-sg
+   ```
+
 #### :lock:  Nexus
+- Create a security group for the Nexus server with the following details.
+
+ ```sh
+Name: vprofile-nexus-sg
+Description: vprofile-nexus-sg
+Tag:  vprofile-nexus-sg
+Allow: 8081 from MY IP
+Allow: 22 from Anywhere from MY IP
+Allow: 8081 from vprofile-jenkins-sg
+   ```
+
 #### :lock:  SonarQube
+
+- Create a security group for the SonQube server with the following details.
+
+ ```sh
+Name: vprofile-sonarqube-sg
+Description: vprofile-sonarqube-sg
+Tag: vprofile-sonarqube-sg
+Allow: 80 from MY IP
+Allow: 80 from vprofile-jenkins-sg
+   ```
+   
 <br/>
 <div align="right">
     <b><a href="#Project-03">↥ back to top</a></b>
