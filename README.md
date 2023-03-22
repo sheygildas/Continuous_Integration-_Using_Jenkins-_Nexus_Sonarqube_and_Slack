@@ -181,6 +181,7 @@ Allow: 80 from vprofile-jenkins-sg
 - 
 #### :bulb: Jenkins
 
+- On your console under `EC2`->`Instances` click `launch instances`.
 - We will create Jenkins-server with below details.
 
 ```sh
@@ -210,6 +211,7 @@ sudo apt-get install jenkins -y
 
 #### :bulb: SonarQube
 
+- On your console under `EC2`->`Instances` click `launch instances`.
 - We will create SonarQube-server with below details.
 
 ```sh
@@ -348,6 +350,7 @@ reboot
    
 #### :bulb: Nexus
 
+- On your console under `EC2`->`Instances` click `launch instances`.
 - We will create Nexus-server with below details.
 
 ```sh
