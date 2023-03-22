@@ -132,7 +132,8 @@ Allow: 22 from Anywhere from MY IP
 Allow: 8080 from vprofile-sonarqube-sg
    ```
 
-#### :lock:  Nexus
+#### :lock: Nexus
+
 - Create a security group for the `Nexus server` with the following details.
 
  ```sh
@@ -144,7 +145,7 @@ Allow: 22 from Anywhere from MY IP
 Allow: 8081 from vprofile-jenkins-sg
    ```
 
-#### :lock:  SonarQube
+#### :lock: SonarQube
 
 - Create a security group for the `SonQube server` with the following details.
 
