@@ -110,7 +110,8 @@ Password: <Your password>
 
 ### :closed_lock_with_key: Create Key Pairs
 
-- Create the  key pair that you use to login to your AWS services and name it as follows.
+- On the console, search for `EC2` scrol down and select `key pair`-> `create key pair`.
+- Create the  key pair that you use to login to your AWS services and name it as follows. This key will be used for all our instances.
 
  ```sh
 Name: ci-vprofile-key
@@ -124,10 +125,11 @@ Name: ci-vprofile-key
 
 ### :lock: Create Security groups
 
-- Create a security group for the Jenkins,Nexux and Sonaqube Instancse.
+- Create three security group for the Jenkins,Nexux and Sonaqube Instancse.
 
 #### :lock: Jenkins
 
+- On your console under `EC2`->`security group` click `create security group`.
 - Create a security group for the `Jenkins server` with the following details.
 
  ```sh
@@ -141,6 +143,7 @@ Allow: 8080 from vprofile-sonarqube-sg
 
 #### :lock: Nexus
 
+- On your console under `EC2`->`security group` click `create security group`.
 - Create a security group for the `Nexus server` with the following details.
 
  ```sh
@@ -154,6 +157,8 @@ Allow: 8081 from vprofile-jenkins-sg
 
 #### :lock: SonarQube
 
+
+- On your console under `EC2`->`security group` click `create security group`.
 - Create a security group for the `SonQube server` with the following details.
 
  ```sh
