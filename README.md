@@ -94,7 +94,14 @@
 <br/>
 
 ### :key: Login to AWS Account
+- Login to your AWS management console. Create an AWS account if you don't have one. 
 
+ ```sh
+Account ID (12 digits) or account alias: <Enter your credentials>
+IAM user name: <Your IAM user name>
+Password: <Your password>
+   ```
+   
 <br/>
 <div align="right">
     <b><a href="#Project-03">↥ back to top</a></b>
