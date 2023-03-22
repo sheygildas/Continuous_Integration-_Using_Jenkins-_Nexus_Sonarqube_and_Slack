@@ -18,7 +18,7 @@
     - [Jenkins](#lock-jenkins)
     - [Nexus](#lock-nexus)
     - [SonarQube](#lock-sonarqube)
-  - [Jenkins Post Installation](#earth_africa-Jenkins Post Installation)
+  - [Jenkins Post Installation](#earth_africa-jenkins-post-installation)
   - [Build Job](#hammer_and_wrench-build-job)
   - [Setup Slack Notification  ](#rocket-setup-slack-notification )
   - [Checkstyle code analysis Job](#package-checkstyle-code-analysis-job)
