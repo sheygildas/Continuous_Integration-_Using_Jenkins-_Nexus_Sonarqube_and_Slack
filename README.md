@@ -19,6 +19,7 @@
     - [Nexus](#lock-nexus)
     - [SonarQube](#lock-sonarqube)
   - [Jenkins Post Installation](#earth_africa-jenkins-post-installation)
+  - [Nexus Post Installation](#earth_africa-nexus-post-installation)
   - [Build Job](#hammer_and_wrench-build-job)
   - [Setup Slack Notification  ](#rocket-setup-slack-notification )
   - [Checkstyle code analysis Job](#package-checkstyle-code-analysis-job)
@@ -415,6 +416,7 @@ Build Timestamp
     <b><a href="#Project-03">↥ back to top</a></b>
 </div>
 <br/>
+
 ### :earth_africa: Nexus Post Installation
 
 
