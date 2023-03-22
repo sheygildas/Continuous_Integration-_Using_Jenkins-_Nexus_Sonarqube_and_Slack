@@ -755,8 +755,9 @@ stage('UPLOAD ARTIFACT') {
 ### :hammer_and_wrench: Make Code change
 
 - Add the code below to your Jenkinsfile in the same level with stages and push our changes.
-- 
-'''sh
+
+
+```sh
 post{
         always {
             echo 'Slack Notifications'
@@ -765,7 +766,10 @@ post{
                 message: "*${currentBuild.currentResult}:* Job ${env.JOB_NAME} build ${env.BUILD_NUMBER} \n More info at: ${env.BUILD_URL}"
         }
     }
-   ```
+   ``` 
+   
+   
+   
 
 - We get our Notification from slack.
 
