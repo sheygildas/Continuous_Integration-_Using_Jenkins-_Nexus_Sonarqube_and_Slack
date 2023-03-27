@@ -510,6 +510,57 @@ password: <pwd_setup_for_nexus>
 ID: nexuslogin
 description: nexuslogin
    ```
+   
+- On your jenkins goto `New Item` create a job and give the details below
+- This `Build` job will download maven dependencies and store them on the nexus repository on our nexus server.
+
+```sh
+Item name: Build
+Click on freestyle 
+click ok
+Genral:
+Description: 
+Source code management:
+select Git
+Repository Url: github.com/devopshydclub/vprofile-project.git
+Branch Specifier: */ci-jenkins
+Build
+Add build step: invoke top-level maven target 
+Goal: install -DskipTest
+Settings file in the file system
+File path: settings.xml
+POM
+Properties:
+SNAP-REPO=vprofile-snapshot
+ NEXUS-USER-admin
+NEXUS-PASS-adminl23
+RELEASE-REPO-vprofile-release
+CENTRAL-REPO-vpro-maven-central 
+NEXUS-GRP-REPO-vpro-maven-group 
+NEXUSIP-<private IP of your nexus server>
+NEXUSPORT-8081 
+Save changes
+   ```   
+- RUN the job 
+- Now login to your nexus server and goto `Browse`-> `vpro-maven-cental` you all see all the dependencies that are store there.
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
  - Create Jenkinsfile to build pipeline, code below
  - 
  ```sh
@@ -581,7 +632,11 @@ path: Jenkinsfile
 
 ### :rocket: Setup Slack Notification
 
-- Login to `slack` and create a` workspace` by following the prompts. Then create a channel `jenkins-cicd` in our workspace
+- Let's create a slack notification so that our developer can get notified when ever there is a build.
+- Login to `slack` and create a` workspace` by following the prompts. Then create a channel `vprofile-jenkins` in our workspace
+- Cretae a boat at api.slack.com. 
+- Give the App name as Jenkins and select your workspace 
+- Click OAuth permission scroll down and Add an OAuth scope select chat write. Click Install App to workspace copy the token.
 
 - Add jenkins to slack. 
 
@@ -591,7 +646,7 @@ path: Jenkinsfile
 ```sh
 Workspace:  example (in the workspace url example.slack.com)
 credential: slacktoken 
-default channel: #jenkins-cicd
+default channel: vprofile-jenkin
    ```
 
 - Add our sonar token to global credentials.
