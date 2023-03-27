@@ -1003,6 +1003,21 @@ stage('UPLOAD ARTIFACT') {
 
 ### :hammer_and_wrench: Connect all jobs together with-Build Pipeline
 
+
+- On your jenkins goto `Manage jenkins`-> `manage plugins` search and install a plugin called `Build Pipeline`.
+
+- Create a new view and called it `vprofile-continous-integration` click pipeline view then  ok
+
+- On edit view enter the following details 
+
+```sh
+initial job: Build 
+No of displayed build: 5
+click save
+   ```
+   
+- Now RUN your new view pipeline 
+- Check your pipeline to see how the jobs are being triggered from one stage to the other, also open your slack channel to see the notifications.
 <br/>
 <div align="right">
     <b><a href="#Project-03">↥ back to top</a></b>
@@ -1010,6 +1025,17 @@ stage('UPLOAD ARTIFACT') {
 <br/>
 
 ### :hammer_and_wrench: Set Automatic build trigger
+
+- On your Jenkins open the `Build` job click on `configure` and make the following changes.
+
+
+```sh
+Scroll down to Build trigger 
+select pull SCM
+Schedule a crone job:  * * * * *  
+click save 
+
+   ```
 
 <br/>
 <div align="right">
@@ -1019,24 +1045,9 @@ stage('UPLOAD ARTIFACT') {
 
 ### :hammer_and_wrench: Make Code change
 
-- Add the code below to your Jenkinsfile in the same level with stages and push our changes.
+- Add a code to your Jenkinsfile in the same level with stages and push our changes.
 
-
-```sh
-post{
-        always {
-            echo 'Slack Notifications'
-            slackSend channel: '#jenkinscicd',
-                color: COLOR_MAP[currentBuild.currentResult],
-                message: "*${currentBuild.currentResult}:* Job ${env.JOB_NAME} build ${env.BUILD_NUMBER} \n More info at: ${env.BUILD_URL}"
-        }
-    }
-   ``` 
-   
-   
-   
-
-- We get our Notification from slack.
+- Our pipeline get triggered automatically and We also get our Notification from slack.
 
   
 <br/>
