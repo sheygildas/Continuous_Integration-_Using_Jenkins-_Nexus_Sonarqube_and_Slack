@@ -753,7 +753,7 @@ project to build : Code Analysis
 ### :lock: Setup Sonar integration
 
 - Login to your sonaqube server got to `my account`-> `security -> `Generate token` and called it `sonartoken ` click generate. Copy the tokenn and store
-- - On your jenkins goto `Manage jenkins`-> `manage plugins` search and install a plugins called `sonarQube scanner` and `sonar quality gates`
+- On your jenkins goto `Manage jenkins`-> `manage plugins` search and install a plugins called `sonarQube scanner` and `sonar quality gates`
 
 - Go to `Manage Jenkin`s -> `Global Tool Configuration` and configure Sonaqube
 
@@ -839,6 +839,7 @@ save
    ```
    
    
+   
 - create a SonarQube code for our pipeline and commit/push changes to GitHub.
 
 
@@ -899,6 +900,70 @@ stage('QUALITY GATE') {
 <br/>
 
 ### :hammer_and_wrench: Artifact upload job
+
+- On your jenkins goto `Manage jenkins`-> `manage plugins` search and install a plugins called `Nexus Artifact Uploader`, `copy Artifact ` and `zentimestamp`
+
+- On your jenkins goto `New Item` create a job and give the details below
+
+```sh
+Item name: Deploy-to-Nexus
+select freestyle
+click ok
+scroll down 
+Build
+Add build step 
+Copy artifact from other project 
+project name: Build
+Artifact to copy:**/*.war
+Add build step 
+Nexus versio: NEXUS3
+PROTOCOL:http
+url: <private ip of nexus server>/8081
+credentials: 
+user name: admin
+password: <your nexus password>
+ID: nexusserverlogin
+click add
+save the creditials and select it 
+group ID: QA
+VERSION:$BUILD_ID
+Repository:vprofile-release
+click add
+ArtifactID: Vprofile-$BUILD_TIMESTAMP
+type: war
+file:target/vprofile-v2.war
+scroll up unders general, click change date pattern for build time stamp
+date and time stamp:yy-MM-dd_HHmm
+Nexus artifact uploder:
+Under post build action 
+Remove archive artifact 
+Post build action 
+add post build action : slack notification 
+selection option you want to receive notification for 
+workspace: <give the name of your work space>
+credentials: slack-token
+Channel:#vprofile-jenkins
+test connextion
+Save changes
+   ``` 
+
+- RUN the `Deploy-to-Nexus` job
+- login to your Nexus to see the copied artifact 
+
+
+- On your Jenkins open the `SonarScanner-CodeAnalysis` job click on `configure` and make the following changes.
+
+
+```sh
+Scroll down to post build action
+Add post buil action
+select trigger parameterze build on other projects 
+project to build : Deploy-to-Nexus
+click only if the job is stable 
+
+save
+   ``` 
+
 - We will automate publish latest artifact to Nexus repository after successful build. We also need to add `Build-Timestamp` to artifact name to get unique artifact each time we build. Go to `Manage Jenkins` -> `Configure System` under `Build Timestamp` add `yy-MM-dd_HHmm`.
 
 
