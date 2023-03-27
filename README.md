@@ -672,6 +672,78 @@ Save changes
 
 ### :package: Checkstyle code analysis Job
 
+- On your jenkins goto `New Item` create a job and give the details below
+
+```sh
+Item name: Test
+scroll down  and copy fro the Build job 
+Under post build action change the goal to test 
+Remove archive artifact 
+
+Save changes
+   ```   
+- RUN the Test job
+
+
+- On your Jenkins open the `Build` job click on `configure` and make the following changes.
+
+
+```sh
+Scroll down to post build action
+Add post buil action
+select trigger parameterze build on other projects 
+project to build : Test 
+   ```
+
+- On your jenkins goto `New Item` create a job and give the details below
+
+```sh
+Item name: Integration Test
+click select freestyle 
+scroll down  and copy fro the Test job 
+Under post build action change the goal to verify -DskipUnitTest 
+Remove archive artifact 
+
+Save changes
+   ```
+
+- On your Jenkins open the `Test` job click on `configure` and make the following changes.
+
+
+```sh
+Scroll down to post build action
+Add post buil action
+select trigger parameterze build on other projects 
+project to build :Integration Test
+   ```
+   
+- On your jenkins goto `Manage jenkins`-> `manage plugins` search and install a plugin called `checkstyle` and `violation`
+
+- On your jenkins goto `New Item` create a job and give the details below
+
+```sh
+Item name: Code Analysis
+select freestyle
+scroll down  and copy fro the Build job 
+Under post build action change the goal to checkstlecheckstle 
+Remove archive artifact 
+
+Save changes
+   ``` 
+   
+- RUN the checkstyle job
+   
+  
+- On your Jenkins open the `Integration Test` job click on `configure` and make the following changes.
+
+
+```sh
+Scroll down to post build action
+Add post buil action
+select trigger parameterze build on other projects 
+project to build : Code Analysis
+   ```
+   
 <br/>
 <div align="right">
     <b><a href="#Project-03">↥ back to top</a></b>
@@ -680,12 +752,15 @@ Save changes
 
 ### :lock: Setup Sonar integration
 
--  Go to `Manage Jenkin`s -> `Global Tool Configuration` and configure Sonaqube
+- Login to your sonaqube server got to `my account`-> `security -> `Generate token` and called it `sonartoken ` click generate. Copy the tokenn and store
+- - On your jenkins goto `Manage jenkins`-> `manage plugins` search and install a plugins called `sonarQube scanner` and `sonar quality gates`
+
+- Go to `Manage Jenkin`s -> `Global Tool Configuration` and configure Sonaqube
 
 
 ```sh
 Add sonar scanner
-name: sonarscanner
+name: sonar-4.4.210  
 tick install automatically
    ```
 - Next we need to go to Configure System, and find SonarQube servers section
@@ -695,7 +770,7 @@ tick environment variables
 Add sonarqube
 Name: sonarserver
 Server URL: http://<private_ip_of_sonar_server>
-Server authentication token: we need to create token from sonar website
+Server authentication token: paste the sonartoken that you copied
    ```
    
  Add sonar token to global credentials.
@@ -706,6 +781,11 @@ Kind: secret text
 Secret: <paste_token>
 name: sonartoken
 description: sonartoken
+scroll down to quality gates-sonarqube
+add sonar instance 
+name: sonar-vprofile
+Server URL: http://<private_ip_of_sonar_server> 
+SonarQube account toke: paste the sonartoken that you copied
    ``` 
 <br/>
 <div align="right">
@@ -715,6 +795,50 @@ description: sonartoken
 
 ### :earth_africa: Sonar code analysis job
 
+
+
+- On your jenkins goto `New Item` create a job and give the details below
+
+```sh
+Item name: SonarScanner-CodeAnalysis
+select freestyle
+scroll down  and copy fro the Build job 
+Under post build action change the goal to install
+Under post build action add the goal to checkstylecheckstyle
+Remove archive artifact 
+Remove Build other project
+Add post build action: execute sonar scanner 
+Analysis properties: Give it the folloing script 
+
+sonar.projectKey=vprofile
+sonar.projectName=vprofile-repo
+sonar.projectVersion=1.0
+sonar.sources=src/
+sonar.java.binaries=target/test-classes/com/visualpathit/account/controllerTest/
+sonar.junit.reportsPath=target/surefire-reports/
+sonar.jacoco.reportsPath=target/jacoco.exec
+sonar.java.checkstyle.reportPaths=target/checkstyle-result.xml
+Save changes
+   ``` 
+- RUN the job
+- Got sonarqube server and see the analysis result about the number of bugs etc 
+- You can change the branch with manay bugs and set violation to fail the job if it exceed certain number of bugs 
+- Also you can set your oen quality gates in sonarqube server instead of using the defaut quality gate.
+
+
+- On your Jenkins open the `Code Analysis` job click on `configure` and make the following changes.
+
+
+```sh
+Scroll down to post build action
+Add post buil action
+select trigger parameterze build on other projects 
+project to build : SonarScanner-CodeAnalysis
+
+save
+   ```
+   
+   
 - create a SonarQube code for our pipeline and commit/push changes to GitHub.
 
 
