@@ -634,30 +634,35 @@ path: Jenkinsfile
 
 - Let's create a slack notification so that our developer can get notified when ever there is a build.
 - Login to `slack` and create a` workspace` by following the prompts. Then create a channel `vprofile-jenkins` in our workspace
-- Cretae a boat at api.slack.com. 
+- Cretae a bot at api.slack.com. 
 - Give the App name as Jenkins and select your workspace 
 - Click OAuth permission scroll down and Add an OAuth scope select chat write. Click Install App to workspace copy the token.
 
 - Add jenkins to slack. 
 
-- Go to Jenkins dashboard  `Configure system` -> `Slack`
+- Go to Jenkins dashboard  `Manage Jenkins` -> `manage plugins` search for `Slack Notification` and install
+
+- Go to Jenkins dashboard  `Manage Jenkins` -> `manage credentials`->`Jenkind`-> `Global credentials`-> `Add credentials` select `secret` enter the slac token you copied 
+
+- Go to Jenkins dashboard  `manage jenkins`->`Configure system` scroll down to slack slect custom slack app bot user save changes 
+
+- On your Jenkins open the `Build` job click on `configure` and make the following changes.
 
  
 ```sh
-Workspace:  example (in the workspace url example.slack.com)
-credential: slacktoken 
-default channel: vprofile-jenkin
+scroll down to post build action
+archieve artifact: **/*.war
+select slact notification
+Choose the options for your notification
+select advanced
+Workspace: <enter your slack workspace name>
+credentials: slack token
+channel: #vprofile-jenkins 
+test connection
+Save changes
    ```
-
-- Add our sonar token to global credentials.
-
- 
-```sh
-Kind: secret text
-Secret: <paste_token>
-name: slacktoken
-description: slacktoken
-   ```
+   
+- RUN the build job and check slack notification 
 
 <br/>
 <div align="right">
